@@ -1,0 +1,385 @@
+query productClientOnlyProduct($storeId: String, $zipCode: String, $itemId: String!, $dataSource: String, $loyaltyMembershipInput: LoyaltyMembershipInput, $skipSpecificationGroup: Boolean = false, $skipSubscribeAndSave: Boolean = false, $skipKPF: Boolean = false) {
+  product(itemId: $itemId, dataSource: $dataSource, loyaltyMembershipInput: $loyaltyMembershipInput) {
+    fulfillment(storeId: $storeId, zipCode: $zipCode) {
+      backordered
+      fulfillmentOptions {
+        type
+        services {
+          type
+          locations {
+            isAnchor
+            inventory {
+              isLimitedQuantity
+              isOutOfStock
+              isInStock
+              quantity
+              isUnavailable
+              maxAllowedBopisQty
+              minAllowedBopisQty
+              __typename
+            }
+            type
+            storeName
+            locationId
+            curbsidePickupFlag
+            isBuyInStoreCheckNearBy
+            distance
+            state
+            storePhone
+            __typename
+          }
+          deliveryTimeline
+          deliveryDates {
+            startDate
+            endDate
+            __typename
+          }
+          deliveryCharge
+          dynamicEta {
+            hours
+            minutes
+            __typename
+          }
+          hasFreeShipping
+          freeDeliveryThreshold
+          totalCharge
+          __typename
+        }
+        fulfillable
+        __typename
+      }
+      anchorStoreStatus
+      anchorStoreStatusType
+      backorderedShipDate
+      bossExcludedShipStates
+      sthExcludedShipState
+      bossExcludedShipState
+      excludedShipStates
+      seasonStatusEligible
+      onlineStoreStatus
+      onlineStoreStatusType
+      inStoreAssemblyEligible
+      __typename
+    }
+    info {
+      dotComColorEligible
+      hidePrice
+      ecoRebate
+      quantityLimit
+      sskMin
+      sskMax
+      unitOfMeasureCoverage
+      wasMaxPriceRange
+      wasMinPriceRange
+      fiscalYear
+      productDepartment
+      classNumber
+      forProfessionalUseOnly
+      globalCustomConfigurator {
+        customButtonText
+        customDescription
+        customExperience
+        customExperienceUrl
+        customTitle
+        __typename
+      }
+      paintBrand
+      movingCalculatorEligible
+      label
+      prop65Warning
+      returnable
+      recommendationFlags {
+        visualNavigation
+        reqItems
+        batItems
+        packages
+        __typename
+      }
+      replacementOMSID
+      hasSubscription
+      minimumOrderQuantity
+      projectCalculatorEligible
+      subClassNumber
+      calculatorType
+      isLiveGoodsProduct
+      protectionPlanSku
+      hasServiceAddOns
+      consultationType
+      __typename
+    }
+    itemId
+    dataSources
+    identifiers {
+      canonicalUrl
+      brandName
+      itemId
+      modelNumber
+      productLabel
+      storeSkuNumber
+      upcGtin13
+      specialOrderSku
+      toolRentalSkuNumber
+      rentalCategory
+      rentalSubCategory
+      upc
+      productType
+      isSuperSku
+      parentId
+      roomVOEnabled
+      sampleId
+      __typename
+    }
+    availabilityType {
+      discontinued
+      status
+      type
+      buyable
+      __typename
+    }
+    details {
+      description
+      collection {
+        url
+        collectionId
+        __typename
+      }
+      highlights
+      descriptiveAttributes {
+        name
+        value
+        bulleted
+        sequence
+        __typename
+      }
+      additionalResources {
+        infoAndGuides {
+          name
+          url
+          __typename
+        }
+        installationAndRentals {
+          contentType
+          name
+          url
+          __typename
+        }
+        diyProjects {
+          contentType
+          name
+          url
+          __typename
+        }
+        __typename
+      }
+      installation {
+        leadGenUrl
+        __typename
+      }
+      __typename
+    }
+    media {
+      images {
+        url
+        type
+        subType
+        sizes
+        __typename
+      }
+      video {
+        shortDescription
+        thumbnail
+        url
+        videoStill
+        link {
+          text
+          url
+          __typename
+        }
+        title
+        type
+        videoId
+        longDescription
+        __typename
+      }
+      threeSixty {
+        id
+        url
+        __typename
+      }
+      augmentedRealityLink {
+        usdz
+        image
+        __typename
+      }
+      richContent {
+        content
+        displayMode
+        richContentSource
+        __typename
+      }
+      __typename
+    }
+    pricing(storeId: $storeId) {
+      promotion {
+        dates {
+          end
+          start
+          __typename
+        }
+        type
+        description {
+          shortDesc
+          longDesc
+          __typename
+        }
+        dollarOff
+        percentageOff
+        savingsCenter
+        savingsCenterPromos
+        specialBuySavings
+        specialBuyDollarOff
+        specialBuyPercentageOff
+        experienceTag
+        subExperienceTag
+        anchorItemList
+        itemList
+        reward {
+          tiers {
+            minPurchaseAmount
+            minPurchaseQuantity
+            rewardPercent
+            rewardAmountPerOrder
+            rewardAmountPerItem
+            rewardFixedPrice
+            __typename
+          }
+          __typename
+        }
+        nvalues
+        brandRefinementId
+        __typename
+      }
+      value
+      alternatePriceDisplay
+      alternate {
+        bulk {
+          pricePerUnit
+          thresholdQuantity
+          value
+          __typename
+        }
+        unit {
+          caseUnitOfMeasure
+          unitsOriginalPrice
+          unitsPerCase
+          value
+          __typename
+        }
+        __typename
+      }
+      original
+      mapAboveOriginalPrice
+      message
+      preferredPriceFlag
+      specialBuy
+      unitOfMeasure
+      __typename
+    }
+    reviews {
+      ratingsReviews {
+        averageRating
+        totalReviews
+        __typename
+      }
+      __typename
+    }
+    seo {
+      seoKeywords
+      seoDescription
+      __typename
+    }
+    specificationGroup @skip(if: $skipSpecificationGroup) {
+      specifications {
+        specName
+        specValue
+        __typename
+      }
+      specTitle
+      __typename
+    }
+    taxonomy {
+      breadCrumbs {
+        label
+        url
+        browseUrl
+        creativeIconUrl
+        deselectUrl
+        dimensionName
+        refinementKey
+        __typename
+      }
+      brandLinkUrl
+      __typename
+    }
+    favoriteDetail {
+      count
+      __typename
+    }
+    sizeAndFitDetail {
+      attributeGroups {
+        attributes {
+          attributeName
+          dimensions
+          __typename
+        }
+        dimensionLabel
+        productType
+        __typename
+      }
+      __typename
+    }
+    subscription @skip(if: $skipSubscribeAndSave) {
+      defaultfrequency
+      discountPercentage
+      subscriptionEnabled
+      __typename
+    }
+    badges(storeId: $storeId) {
+      label
+      color
+      creativeImageUrl
+      endDate
+      message
+      name
+      timerDuration
+      timer {
+        timeBombThreshold
+        daysLeftThreshold
+        dateDisplayThreshold
+        message
+        __typename
+      }
+      __typename
+    }
+    keyProductFeatures @skip(if: $skipKPF) {
+      keyProductFeaturesItems {
+        features {
+          name
+          refinementId
+          refinementUrl
+          value
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    seoDescription
+    installServices {
+      scheduleAMeasure
+      __typename
+    }
+    dataSource
+    __typename
+  }
+}
