@@ -129,96 +129,6 @@ query productClientOnlyProduct($storeId: String, $zipCode: String, $itemId: Stri
       sampleId
       __typename
     }
-    availabilityType {
-      discontinued
-      status
-      type
-      buyable
-      __typename
-    }
-    details {
-      description
-      collection {
-        url
-        collectionId
-        __typename
-      }
-      highlights
-      descriptiveAttributes {
-        name
-        value
-        bulleted
-        sequence
-        __typename
-      }
-      additionalResources {
-        infoAndGuides {
-          name
-          url
-          __typename
-        }
-        installationAndRentals {
-          contentType
-          name
-          url
-          __typename
-        }
-        diyProjects {
-          contentType
-          name
-          url
-          __typename
-        }
-        __typename
-      }
-      installation {
-        leadGenUrl
-        __typename
-      }
-      __typename
-    }
-    media {
-      images {
-        url
-        type
-        subType
-        sizes
-        __typename
-      }
-      video {
-        shortDescription
-        thumbnail
-        url
-        videoStill
-        link {
-          text
-          url
-          __typename
-        }
-        title
-        type
-        videoId
-        longDescription
-        __typename
-      }
-      threeSixty {
-        id
-        url
-        __typename
-      }
-      augmentedRealityLink {
-        usdz
-        image
-        __typename
-      }
-      richContent {
-        content
-        displayMode
-        richContentSource
-        __typename
-      }
-      __typename
-    }
     pricing(storeId: $storeId) {
       promotion {
         dates {
@@ -285,14 +195,6 @@ query productClientOnlyProduct($storeId: String, $zipCode: String, $itemId: Stri
       unitOfMeasure
       __typename
     }
-    reviews {
-      ratingsReviews {
-        averageRating
-        totalReviews
-        __typename
-      }
-      __typename
-    }
     seo {
       seoKeywords
       seoDescription
@@ -321,10 +223,6 @@ query productClientOnlyProduct($storeId: String, $zipCode: String, $itemId: Stri
       brandLinkUrl
       __typename
     }
-    favoriteDetail {
-      count
-      __typename
-    }
     sizeAndFitDetail {
       attributeGroups {
         attributes {
@@ -344,23 +242,6 @@ query productClientOnlyProduct($storeId: String, $zipCode: String, $itemId: Stri
       subscriptionEnabled
       __typename
     }
-    badges(storeId: $storeId) {
-      label
-      color
-      creativeImageUrl
-      endDate
-      message
-      name
-      timerDuration
-      timer {
-        timeBombThreshold
-        daysLeftThreshold
-        dateDisplayThreshold
-        message
-        __typename
-      }
-      __typename
-    }
     keyProductFeatures @skip(if: $skipKPF) {
       keyProductFeaturesItems {
         features {
@@ -375,10 +256,6 @@ query productClientOnlyProduct($storeId: String, $zipCode: String, $itemId: Stri
       __typename
     }
     seoDescription
-    installServices {
-      scheduleAMeasure
-      __typename
-    }
     dataSource
     __typename
   }
