@@ -31,21 +31,39 @@ def setup(obj):
 print("Setting up worker bot")
 worker = setup(bot())
 
-# using graph query and JSON payload, make POST to hydration API to get the data for an item
-def get_item_payload(store=0, item=000000, write_to_log=False):
+
+def get_graphql_query():
     ql_query = None
     with open("query.dat", "r") as file:
-        ql_query = file.read().splitlines(True)
+        # read without newline character
+        ql_query = file.read().splitlines(False)
 
-    # TODO: Fix payload string variable replacement and string replacement
-    payload = (
-        '{"operationName":"productClientOnlyProduct","variables":{"skipSpecificationGroup":false,"skipSubscribeAndSave":false,"skipKPF":false,"itemId":"'
-        + str(item)
-        + '","storeId":"'
-        + str(store)
-        + '","zipCode":"77449"},"query":"'
-        + str(ql_query).replace("['", "").replace("']", "").replace("', '", "")
-        + '"}'
+    # return single string instead of a list<str>
+    ql_query = "".join([str(line) for line in ql_query])
+    return ql_query
+
+
+# using graph query and JSON payload, make POST to hydration API to get the data for an item
+def get_item_payload(
+    store=0, item=00000, zipcode=00000, write_request=False, write_response=False
+):
+    query = get_graphql_query()
+    if query == None or query == "":
+        print("ERROR: Query not present. Cannot continue.")
+
+    payload = json.dumps(
+        {
+            "operationName": "productClientOnlyProduct",
+            "variables": {
+                "skipSpecificationGroup": False,
+                "skipSubscribeAndSave": False,
+                "skipKPF": False,
+                "itemId": item,
+                "storeId": store,
+                "zipcode": zipcode,
+            },
+            "query": str(query),
+        }
     )
     headers = {
         "authority": "www.homedepot.com",
@@ -58,13 +76,26 @@ def get_item_payload(store=0, item=000000, write_to_log=False):
         "accept-encoding": "gzip, deflate, br",
         "x-hd-dc": "origin",
     }
+    if write_request:
+        nonce = str(int(datetime.now().timestamp()))
+        with open(
+            nonce + "_request.json",
+            "a+",
+            encoding="utf-8",
+        ) as f:
+            f.writelines(
+                [str(payload), "=======================================", str(headers)]
+            )
+            f.close()
+
+    # execute POST
     result = requests.post(
         API_URL,
         data=payload,
         headers=headers,
     )
 
-    if write_to_log:
+    if write_response:
         nonce = str(int(datetime.now().timestamp()))
         with open(
             nonce + "_response.json",
@@ -108,5 +139,5 @@ def get_item_id_from_url(url):
 # examples
 for link in item_links:
     item_id = get_item_id_from_url(link)
-    payload = get_item_payload(534, item_id, False)
+    payload = get_item_payload(534, item_id, 77449, True, True)
     print("$" + str(get_price(payload)) + " - " + str(get_name(payload)))
