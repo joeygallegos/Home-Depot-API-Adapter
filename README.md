@@ -1,5 +1,5 @@
 # Home Depot API Adapter
-I am trying to monitor for the lowest price on items like lumber, and sometimes they fluctuate a lot. I created this script that allows for requesting pricing data from Home Depot's hydration API and provide the pricing for items based on store and zipcode.
+This is a POC to query data from Home Depot's GraphQL isntance to get item and pricing data. I am trying to monitor for the lowest price on items like lumber, and sometimes they fluctuate a lot. All you need to run the check is the store ID and zipcode. With the API response you could theoretically monitor for lowest price.
 
 ## Behind the scenes
 To pull the item data from the hydration API, you need to POST data to the endpoint requesting details for an item at a particular store and zipcode. Below is a sample JSON POST request to the endpoint. 
